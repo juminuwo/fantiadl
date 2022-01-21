@@ -2,7 +2,7 @@ import json
 from glob import glob
 import models
 from models import FantiaClub, POST_API, traceback
-from session_arg import session_arg, fanclub_url  # type: ignore
+from session_arg import session_arg, fanclub_urls  # type: ignore
 
 def download_remaining_posts(fanclub, downloader):
     """Get post ids and downloaded for fanclub and filters on downloader from
@@ -31,9 +31,10 @@ def download_remaining_posts(fanclub, downloader):
 
 
 if __name__ == '__main__':
-    print('fanclub_url: {}'.format(fanclub_url))
-    url_match = models.FANTIA_URL_RE.match(fanclub_url)
-    url_groups = url_match.groups()
-    downloader = models.FantiaDownloader(session_arg=session_arg, quiet=False)
-    fanclub = models.FantiaClub(url_groups[1])
-    download_remaining_posts(fanclub, downloader)
+    for fanclub_url in fanclub_urls:
+        print('fanclub_url: {}'.format(fanclub_url))
+        url_match = models.FANTIA_URL_RE.match(fanclub_url)
+        url_groups = url_match.groups()
+        downloader = models.FantiaDownloader(session_arg=session_arg, quiet=False)
+        fanclub = models.FantiaClub(url_groups[1])
+        download_remaining_posts(fanclub, downloader)
