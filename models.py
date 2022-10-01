@@ -279,6 +279,7 @@ class FantiaDownloader:
                 link = post.select_one("a.link-block")["href"]
                 post_id = link.lstrip(POST_RELATIVE_URL)
                 date_string = post.select_one("span.post-date").text.rstrip(RENEW_STR)
+                date_string = date_string.replace("Update", "")
                 parsed_date = dt.strptime(date_string, "%Y-%m-%d %H:%M")
                 if not self.month_limit or (parsed_date.year == self.month_limit.year and parsed_date.month == self.month_limit.month):
                     post_found = True
