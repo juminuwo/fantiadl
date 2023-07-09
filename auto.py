@@ -20,7 +20,8 @@ def download_remaining_posts(output_path, fanclub, downloader):
     csrf_token = post_html.select_one("meta[name=\"csrf-token\"]")["content"]
 
     response = downloader.session.get(POST_API.format(post_ids[0]), headers={
-        "X-CSRF-Token": csrf_token
+        "X-CSRF-Token": csrf_token,
+        "X-Requested-With": "XMLHttpRequest"
     })
     response.raise_for_status()
     post_json = json.loads(response.text)["post"]
