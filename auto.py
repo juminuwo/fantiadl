@@ -1,12 +1,16 @@
 import json
+import os
 from glob import glob
 
 from bs4 import BeautifulSoup
 
 import models
 from models import *
-from cmdl_values import fanclub_urls, output_path, session_arg  # type: ignore
+from cmdl_values import fanclub_urls, session_arg  # type: ignore
 from models import POST_API, FantiaClub, traceback
+
+# Use the project directory as output path
+output_path = os.path.dirname(os.path.abspath(__file__))
 
 
 def download_remaining_posts(output_path, fanclub, downloader):
